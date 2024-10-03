@@ -31,14 +31,9 @@ elif [[ -n "$UNITY_LICENSING_SERVER" && -f "license.txt" ]]; then
   FLOATING_LICENSE_ID=$(sed -n 2p <<< "$PARSEDFILE")
 
   echo "Updating services-config.json to use $UNITY_LICENSING_SERVER"
-  echo "Looking in /usr/share: $(ls /usr/share)"
-  echo "Looking in /usr/share/unity3d: $(ls /usr/share/unity3d)"
-  echo "Looking in /usr/share/unity3d/config: $(ls /usr/share/unity3d/config)"
-
   mkdir -p /usr/share/unity3d/config
-  sed 's/%URL%/test/g' services-config.json.template > /usr/share/unity3d/config/services-config.json
+  sed "s/%URL%/$UNITY_LICENSING_SERVER/g" services-config.json.template > /usr/share/unity3d/config/services-config.json
 
-  echo "Configuring services-config.json"
   echo "Returning floating license: \"$FLOATING_LICENSE_ID\""
   /opt/unity/Editor/Data/Resources/Licensing/Client/Unity.Licensing.Client --return-floating "$FLOATING_LICENSE_ID"
 else
