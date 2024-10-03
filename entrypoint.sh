@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+echo "Entrypoint script started."
+echo "Current directory:"
+pwd
+echo "Files: $(ls -la)"
+echo "Environment Variables:"
+printenv
+
 if [[ -n "$UNITY_SERIAL" ]]; then
   #
   # PROFESSIONAL (SERIAL) LICENSE MODE
