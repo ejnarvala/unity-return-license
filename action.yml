@@ -1,11 +1,17 @@
 name: 'Unity - Return License'
 author: Webber Takken <webber@takken.io>
 description: 'Return a Unity Pro license and free up a spot towards the maximum number of active licenses.'
-inputs: {}
+inputs:
+  unityLicensingServer:
+    default: ''
+    required: false
+    description: 'The Unity licensing server address to use for activating Unity.'
 outputs: {}
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  args:
+    - ${{ inputs.unityLicensingServer }}
 branding:
   icon: 'box'
   color: 'gray-dark'

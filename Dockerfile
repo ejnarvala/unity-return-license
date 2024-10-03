@@ -10,5 +10,6 @@ LABEL "homepage"="http://github.com/webbertakken/unity-actions"
 LABEL "maintainer"="Webber Takken <webber@takken.io>"
 
 ADD entrypoint.sh /entrypoint.sh
+ADD services-config.json.template /services-config.json.template
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
