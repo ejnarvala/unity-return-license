@@ -3,4 +3,5 @@
 
 # Files required for the action
 !entrypoint.sh
+!services-config.json.template
 !action.yml
