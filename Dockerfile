@@ -1,4 +1,4 @@
-FROM unityci/editor:ubuntu-2019.2.11f1-base-1
+FROM unityci/editor:ubuntu-6000.0.21f1-base-3.1.0
 
 LABEL "com.github.actions.name"="Unity - Return License"
 LABEL "com.github.actions.description"="Return a Unity Pro license and free up a spot towards the maximum number of active licenses."
@@ -10,5 +10,6 @@ LABEL "homepage"="http://github.com/webbertakken/unity-actions"
 LABEL "maintainer"="Webber Takken <webber@takken.io>"
 
 ADD entrypoint.sh /entrypoint.sh
+COPY services-config.json.template /services-config.json.template
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
