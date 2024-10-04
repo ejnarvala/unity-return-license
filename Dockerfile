@@ -12,5 +12,4 @@ LABEL "maintainer"="Webber Takken <webber@takken.io>"
 ADD entrypoint.sh /entrypoint.sh
 COPY services-config.json.template /services-config.json.template
 RUN chmod +x /entrypoint.sh
-RUN chmod 644 /services-config.json.template
 ENTRYPOINT ["/entrypoint.sh"]
