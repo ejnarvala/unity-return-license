@@ -1,15 +1,7 @@
 #!/usr/bin/env bash
 
-echo "Entrypoint script started."
-echo "Current directory:"
-pwd
-echo "Files: $(ls)"
-echo "Environment Variables:"
-printenv
-
 UNITY_LICENSING_SERVER=$1
 
-echo "Unity Licensing Server: $UNITY_LICENSING_SERVER"
 if [[ -n "$UNITY_SERIAL" ]]; then
   #
   # PROFESSIONAL (SERIAL) LICENSE MODE
@@ -24,19 +16,17 @@ elif [[ -n "$UNITY_LICENSING_SERVER" && -f "license.txt" ]]; then
   #
   # FLOATING LICENSE FILE MODE
   #
-  # This will return the license that is currently in use.
+  # This will return the floating license that is currently in use. 
+  # This depends on a licensing server URL and a license file being present
   #
-  echo "Found license.txt file. Parsing file for floating license."
+  # https://github.com/game-ci/unity-builder/blob/main/dist/platforms/ubuntu/steps/activate.sh#L70-L71
   PARSEDFILE=$(grep -oP '\".*?\"' < license.txt | tr -d '"')
   FLOATING_LICENSE_ID=$(sed -n 2p <<< "$PARSEDFILE")
 
-  echo "Updating services-config.json to use $UNITY_LICENSING_SERVER"
-  echo "Before:"
-  cat services-config.json.template | jq
   mkdir -p /usr/share/unity3d/config
   sed "s|%URL%|$UNITY_LICENSING_SERVER|g" /services-config.json.template > /usr/share/unity3d/config/services-config.json
-  echo "After:"
-  cat /usr/share/unity3d/config/services-config.json | jq
+
+  # https://github.com/game-ci/unity-builder/blob/main/dist/platforms/ubuntu/steps/return_license.sh#L8
   echo "Returning floating license: \"$FLOATING_LICENSE_ID\""
   /opt/unity/Editor/Data/Resources/Licensing/Client/Unity.Licensing.Client --return-floating "$FLOATING_LICENSE_ID"
 else
