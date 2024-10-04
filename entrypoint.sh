@@ -23,6 +23,8 @@ elif [[ -n "$UNITY_LICENSING_SERVER" && -f "license.txt" ]]; then
   PARSEDFILE=$(grep -oP '\".*?\"' < license.txt | tr -d '"')
   FLOATING_LICENSE_ID=$(sed -n 2p <<< "$PARSEDFILE")
 
+  /opt/unity/Editor/Data/Resources/Licensing/Client/Unity.Licensing.Client --showContext
+
   mkdir -p /usr/share/unity3d/config
   sed "s|%URL%|$UNITY_LICENSING_SERVER|g" /services-config.json.template > /usr/share/unity3d/config/services-config.json
 
