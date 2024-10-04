@@ -28,7 +28,7 @@ elif [[ -n "$UNITY_LICENSING_SERVER" && -f "license.txt" ]]; then
 
   # https://github.com/game-ci/unity-builder/blob/main/dist/platforms/ubuntu/steps/return_license.sh#L8
   echo "Returning floating license: \"$FLOATING_LICENSE_ID\""
-  /opt/unity/Editor/Data/Resources/Licensing/Client/Unity.Licensing.Client --return-floating "$FLOATING_LICENSE_ID"
+  /opt/unity/Editor/Data/Resources/Licensing/Client/Unity.Licensing.Client --return-floating "$FLOATING_LICENSE_ID" --debug
 else
   echo "No license was returned."
 fi
