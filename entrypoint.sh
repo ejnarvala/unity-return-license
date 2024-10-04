@@ -9,8 +9,6 @@ printenv
 
 UNITY_LICENSING_SERVER=$1
 
-touch license.txt
-
 echo "Unity Licensing Server: $UNITY_LICENSING_SERVER"
 if [[ -n "$UNITY_SERIAL" ]]; then
   #
@@ -36,7 +34,7 @@ elif [[ -n "$UNITY_LICENSING_SERVER" && -f "license.txt" ]]; then
   echo "Before:"
   cat services-config.json.template | jq
   mkdir -p /usr/share/unity3d/config
-  sed "s|%URL%|$UNITY_LICENSING_SERVER|g" services-config.json.template > /usr/share/unity3d/config/services-config.json
+  sed "s|%URL%|$UNITY_LICENSING_SERVER|g" /services-config.json.template > /usr/share/unity3d/config/services-config.json
   echo "After:"
   cat /usr/share/unity3d/config/services-config.json | jq
   echo "Returning floating license: \"$FLOATING_LICENSE_ID\""
